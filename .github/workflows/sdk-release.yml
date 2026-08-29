@@ -15,9 +15,18 @@ jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: packages/sdk/package-lock.json
+      - run: cd packages/sdk && npm ci
+      - name: Verify API snapshot compatibility
+        run: cd packages/sdk && npm run api:check
       - uses: googleapis/release-please-action@v4
         with:
           path: packages/sdk
           release-type: node
           package-name: "@chenpilot-experimental/sdk"
-          changelog-types: '[{"type":"feat","section":"Features","hidden":false},{"type":"fix","section":"Bug Fixes","hidden":false},{"type":"chore","section":"Miscellaneous","hidden":false},{"type":"docs","section":"Documentation","hidden":false}]'
+          changelog-types: '[{\"type\":\"feat\",\"section\":\"Features\",\"hidden\":false},{\"type\":\"fix\",\"section\":\"Bug Fixes\",\"hidden\":false},{\"type\":\"chore\",\"section\":\"Miscellaneous\",\"hidden\":false},{\"type\":\"docs\",\"section\":\"Documentation\",\"hidden\":false}]'
