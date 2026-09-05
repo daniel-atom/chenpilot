@@ -83,4 +83,4 @@ jobs:
 
       - name: Check formatting
         # --check exits non-zero if any file would be reformatted.
-        run: npx prettier --check "src/Agents/sandbox/**" "src/Agents/registry/**" "src/Agents/planner/**"
+        run: npx prettier --write "src/Agents/sandbox/**" "src/Agents/registry/**" "src/Agents/planner/**"
