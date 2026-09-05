@@ -32,7 +32,6 @@ import {
   InterventionCommand,
   InterventionStatus,
   SignedInterventionCommand,
-  InterventionPayload,
   RetryPayload,
   SkipPayload,
   CompensatePayload,
