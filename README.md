@@ -399,6 +399,9 @@ Redis connectivity before relying on cluster-wide request ceilings.
 - Create a feature branch
 - Make your changes
 - Ensure pre-commit and commit message checks pass
+- Run `npm audit fix` and commit the lockfile if the dependency audit check
+  fails.
+- Run `npx prettier --write "src/Agents/**"` if the Prettier CI check fails.
 - Add tests if applicable
 - Submit a pull request
 
