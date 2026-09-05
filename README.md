@@ -402,6 +402,9 @@ Redis connectivity before relying on cluster-wide request ceilings.
 - Run `npm audit fix` and commit the lockfile if the dependency audit check
   fails.
 - Run `npx prettier --write "src/Agents/**"` if the Prettier CI check fails.
+- Run `npx eslint src/Agents/sandbox/ src/Agents/registry/ src/Agents/planner/ --max-warnings 0`
+  if the ESLint CI check fails; resolve all reported `prefer-const` and
+  `@typescript-eslint/no-unused-vars` errors before submitting.
 - Add tests if applicable
 - Submit a pull request
 
