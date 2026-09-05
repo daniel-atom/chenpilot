@@ -343,7 +343,7 @@ describe("DurableExecutor — cancellation semantics", () => {
   // cancelExecution — idempotency
   // -------------------------------------------------------------------------
 
-  describe("cancelExecution — idempotency", () => {
+  describe("cancelExecution — idempotency", () =>{
     it("returns the existing record without writing when already CANCELLED", async () => {
       const exec = makeExecution({
         status: ExecutionStatus.CANCELLED,
