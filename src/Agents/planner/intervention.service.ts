@@ -122,7 +122,7 @@ export class InterventionService {
    * 6. Otherwise → apply immediately, persist applied record.
    */
   async submit(
-    cmd: SignedInterventionCommand
+    cmd: SignedInterventionCommand,
   ): Promise<InterventionApplyResult> {
     // 1. Signature verification
     this.verifySignature(cmd);
@@ -182,7 +182,7 @@ export class InterventionService {
    */
   async applyApproved(
     interventionId: string,
-    workflowInstanceId: string
+    workflowInstanceId: string,
   ): Promise<InterventionApplyResult> {
     const record = await this.interventionRepo.findOne({
       where: { id: interventionId },
@@ -195,7 +195,7 @@ export class InterventionService {
 
     if (record.status !== InterventionStatus.PENDING_APPROVAL) {
       throw new Error(
-        `Intervention is not pending approval (status: ${record.status})`
+        `Intervention is not pending approval (status: ${record.status})`,
       );
     }
 
@@ -273,7 +273,7 @@ export class InterventionService {
   verifySignature(cmd: SignedInterventionCommand): void {
     if (SIGNING_SECRET === "MISSING_SECRET_WILL_FAIL") {
       throw new Error(
-        "INTERVENTION_SIGNING_SECRET is not configured — interventions are disabled"
+        "INTERVENTION_SIGNING_SECRET is not configured — interventions are disabled",
       );
     }
 
@@ -282,7 +282,7 @@ export class InterventionService {
     const ageSeconds = (Date.now() - issued.getTime()) / 1000;
     if (ageSeconds > SIGNATURE_TTL_SECONDS) {
       throw new Error(
-        `Signed command has expired (age ${Math.round(ageSeconds)}s, max ${SIGNATURE_TTL_SECONDS}s)`
+        `Signed command has expired (age ${Math.round(ageSeconds)}s, max ${SIGNATURE_TTL_SECONDS}s)`,
       );
     }
 
@@ -306,7 +306,7 @@ export class InterventionService {
     try {
       match = crypto.timingSafeEqual(
         Buffer.from(cmd.signature, "hex"),
-        Buffer.from(expected, "hex")
+        Buffer.from(expected, "hex"),
       );
     } catch {
       match = false;
@@ -314,7 +314,7 @@ export class InterventionService {
 
     if (!match) {
       throw new Error(
-        "Signature verification failed — command may have been tampered with"
+        "Signature verification failed — command may have been tampered with",
       );
     }
   }
@@ -330,7 +330,7 @@ export class InterventionService {
   checkPreconditions(
     cmd: SignedInterventionCommand,
     execution: DurableExecution,
-    steps: DurableStep[]
+    steps: DurableStep[],
   ): PreconditionResult {
     const violations: string[] = [];
 
@@ -352,7 +352,7 @@ export class InterventionService {
         break;
       default:
         violations.push(
-          `Unknown command: ${(cmd as SignedInterventionCommand).command}`
+          `Unknown command: ${(cmd as SignedInterventionCommand).command}`,
         );
     }
 
@@ -363,11 +363,11 @@ export class InterventionService {
     cmd: SignedInterventionCommand,
     execution: DurableExecution,
     steps: DurableStep[],
-    violations: string[]
+    violations: string[],
   ): void {
     if (!INTERVENABLE_STATUSES.has(execution.status)) {
       violations.push(
-        `RETRY requires execution status FAILED or PAUSED (current: ${execution.status})`
+        `RETRY requires execution status FAILED or PAUSED (current: ${execution.status})`,
       );
     }
 
