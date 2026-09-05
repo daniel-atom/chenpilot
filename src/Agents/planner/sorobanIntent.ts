@@ -18,19 +18,7 @@ const LIQUIDITY_POOL_KEYWORDS = [
   "pool apr",
 ];
 
-const SOROBAN_KEYWORDS = [
-  "soroban",
-  "contract",
-  "invoke",
-  "call",
-  "stake",
-  "unstake",
-  "lend",
-  "borrow",
-  "staking",
-  "defi",
-  "lending",
-];
+
 
 const METHOD_KEYWORDS = ["stake", "unstake", "lend", "borrow"];
 
@@ -38,7 +26,7 @@ export function parseSorobanIntent(input: string): WorkflowPlan | null {
   const text = input.toLowerCase();
 
   // Fast-path: liquidity pool stats by pool ID
-  if (LIQURITIY_POOL_KEYWORDS.some((k) => text.includes(k))) {
+  if (LIQUIDITY_POOL_KEYWORDS.some((k) => text.includes(k))) {
     const poolIdMatch = input.match(/\b([0-9a-f]{64})\b/i);
     if (poolIdMatch) {
       return {
