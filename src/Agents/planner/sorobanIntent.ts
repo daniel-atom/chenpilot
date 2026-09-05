@@ -38,7 +38,7 @@ export function parseSorobanIntent(input: string): WorkflowPlan | null {
   const text = input.toLowerCase();
 
   // Fast-path: liquidity pool stats by pool ID
-  if (LIQUIDITY_POOL_KEYWORDS.some((k) => text.includes(k))) {
+  if (LIQURITIY_POOL_KEYWORDS.some((k) => text.includes(k))) {
     const poolIdMatch = input.match(/\b([0-9a-f]{64})\b/i);
     if (poolIdMatch) {
       return {
@@ -73,7 +73,8 @@ export function parseSorobanIntent(input: string): WorkflowPlan | null {
     }
   }
 
-  const hasKeyword = text.includes("soroban") || text.includes("soroban_invoke");
+  const hasKeyword =
+    text.includes("soroban") || text.includes("soroban_invoke");
   const contractIdMatch = input.match(/\bC[A-Z0-9]{10,}\b/);
 
   if (!hasKeyword && !contractIdMatch) {
