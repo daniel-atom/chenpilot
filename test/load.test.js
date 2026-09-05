@@ -1,1 +1,1 @@
-// load tests for WebSocket flow control and slow-conumer evictionb
+test('slow consumer', () => {});
